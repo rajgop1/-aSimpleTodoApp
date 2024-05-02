@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <script src="./scripts/main.js" type="module" defer></script>
+  </head>
+  <body>
+    <h1>!aSimple "Todo App"</h1>
+    <hr />
+    <h2>Add a Todo</h2>
+    <form id="todo-form">
+      <input
+        type="text"
+        placeholder="Enter what you want to do?"
+        list="previously-added-items"
+        id="what-to-do"
+        required
+      />
+      <datalist id="previously-added-items"></datalist>
+      <br />
+      <label for="priority">Priority</label>
+      <select name="" id="priority" aria-placeholder="priority" required>
+        <option value="0" style="background-color: green; color: white">
+          High
+        </option>
+        <option style="background-color: yellow" value="1">Medium</option>
+        <option selected value="2" style="background-color: red; color: white">
+          Low
+        </option>
+      </select>
+      <br />
+      <button id="add-todo">Add</button>
+    </form>
+    <hr />
+    <h2>You have to do...</h2>
+    <section id="todos">Nothing...</section>
+  </body>
+</html>
