@@ -1,5 +1,5 @@
 import TodoStorePriorityQueue from './todoPriorityQueue.js';
-
+import notify from './notification.js';
 // Read UI
 const todo = document.getElementById('what-to-do');
 const add = document.getElementById('add-todo');
@@ -63,3 +63,37 @@ function deleteTodo(id) {
   todoStore.remove(id);
   renderTodo();
 }
+
+
+let db
+
+const dbName = "todoDb"
+
+function initialize(){
+  const request = indexedDB.open(dbName, 2);
+  
+  request.onerror = (event) => {
+    // Handle errors.
+  };
+  request.onupgradeneeded = (event) => {
+    db = event.target.result;
+  
+    const objectStore = db.createObjectStore("todoTable", { keyPath: "id" });
+  
+    objectStore.createIndex("todoValue", "todoValue", { unique: false });
+  
+    objectStore.transaction.oncomplete = (event) => {
+      const todoObjectStore = db
+        .transaction("todoTable", "readwrite")
+        .objectStore("todoTable");
+      const dummyItems = [ {id:1,todoValue:"hi"},{id:2,todoValue:"there"} ]
+      dummyItems.forEach((customer) => {
+        todoObjectStore.add(customer);
+      });
+    };
+  };
+}
+
+
+initialize()
+notify()
